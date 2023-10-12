@@ -10,6 +10,10 @@ class User < ApplicationRecord
 
   has_many :comments, foreign_key: 'creator_id', through: :posts
 
+  has_one :information
+
+
+  
   def friends
     ids1 = Friendship.where(user_id: id, confirmed: true).pluck(:another_user_id)
     ids2 = Friendship.where(another_user_id: id, confirmed: true).pluck(:user_id)
