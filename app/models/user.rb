@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  after_create :create_information
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -31,5 +33,11 @@ class User < ApplicationRecord
   def received_invitations
     ids = Friendship.where(another_user_id: id, confirmed: false).pluck(:user_id)
     User.where(id: ids)
+  end
+
+  private
+
+  def create_information
+    User.last.create_information!(photo: 'https://i.stack.imgur.com/YaL3s.jpg', description: '...')
   end
 end
