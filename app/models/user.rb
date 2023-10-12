@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :friendships
+  has_many :posts, foreign_key: 'creator_id'
 
   def friends
     ids1 = Friendship.where(user_id: id, confirmed: true).pluck(:another_user_id)
