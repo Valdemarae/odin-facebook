@@ -5,5 +5,5 @@ class Post < ApplicationRecord
 
   has_many :likes
 
-  validated :content, presence: true
+  validates :content, presence: true
 end
