@@ -1,0 +1,9 @@
+<h1>Users</h1>
+<ol>
+  <% @users.each do |user| %>
+    <li>
+      <%= image_tag user.information.photo %>
+      <%= user.name %>
+    </li>
+  <% end %>
+</ol>
