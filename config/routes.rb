@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'posts/index'
-  get 'posts/new'
-  get 'posts/create'
-  get 'posts/update'
-  get 'posts/edit'
-  get 'posts/destroy'
   devise_for :users
   resources :users, only: [:show, :index]
   resources :posts, except: [:show]
