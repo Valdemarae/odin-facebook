@@ -3,8 +3,6 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if (@comment.save)
       redirect_to posts_path
-    else
-      render posts_path
     end
   end
 

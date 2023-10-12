@@ -4,4 +4,6 @@ class Post < ApplicationRecord
   has_many :comments
 
   has_many :likes
+
+  validated :content, presence: true
 end

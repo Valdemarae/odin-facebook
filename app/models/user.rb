@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   has_one :information
 
-
+  validates :name, presence: true
 
   def friends
     ids1 = Friendship.where(user_id: id, confirmed: true).pluck(:another_user_id)
