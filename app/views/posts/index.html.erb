@@ -5,7 +5,7 @@
   <% @posts.each do |post| %>
     <li>
       <h3>
-        <%= post.creator.name %>
+        <%= post.creator.name %>'s post (likes count: <%= post.likes.count %>)
 
         <% if (post.creator.id == current_user.id) %>
           <%= button_to 'Edit Post', edit_post_path(post.id), method: :get %>
