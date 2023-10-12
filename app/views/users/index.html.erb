@@ -4,6 +4,21 @@
     <li>
       <%= image_tag user.information.photo %>
       <%= user.name %>
+
+      <% friendship = Friendship.find_by("user_id = ? AND another_user_id = ? OR 
+        user_id = ? AND another_user_id = ?", user.id, current_user.id, current_user.id, user.id) %>
+
+      <% if (@friends.ids.include?(user.id)) %>
+        <%= button_to 'unfriend', "/friendships/#{friendship.id}", method: :delete %>
+      <% elsif (@sent_invitations.ids.include?(user.id)) %>
+        <%= button_to 'unsend invitation', "/friendships/#{friendship.id}", method: :delete %>
+      <% elsif (@received_invitations.ids.include?(user.id)) %>
+        <%= button_to 'accept invite', "/friendships/#{friendship.id}", method: :put %>
+      <% else %>
+        <%= button_to 'send invite', '/friendships', method: :post, 
+          params: { friendship: { user_id: current_user.id, another_user_id: user.id } } %>
+      <% end %>
+
     </li>
   <% end %>
 </ol>
