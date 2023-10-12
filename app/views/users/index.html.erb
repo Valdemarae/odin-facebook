@@ -14,6 +14,7 @@
         <%= button_to 'unsend invitation', "/friendships/#{friendship.id}", method: :delete %>
       <% elsif (@received_invitations.ids.include?(user.id)) %>
         <%= button_to 'accept invite', "/friendships/#{friendship.id}", method: :put %>
+        <%= button_to 'decline invite', "/friendships/#{friendship.id}", method: :delete %>
       <% else %>
         <%= button_to 'send invite', '/friendships', method: :post, 
           params: { friendship: { user_id: current_user.id, another_user_id: user.id } } %>
