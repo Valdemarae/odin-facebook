@@ -6,8 +6,10 @@
 <ol>
   <% @friends.each do |friend| %>
     <li>
-      <%= image_tag friend.information.photo %>
-      <%= friend.name %>
+      <a href=<%= user_path(friend.id) %>>
+        <%= image_tag friend.information.photo %>
+        <%= friend.name %>
+      </a>
     </li>
   <% end %>
 </ol>
