@@ -1,15 +1,21 @@
-<h1><%= @user.name %></h1>
-<%= image_tag @user.information.photo %>
-<h2>Description</h2>
-<%= @user.information.description %>
-<h2>Friends</h2>
-<ol>
-  <% @friends.each do |friend| %>
-    <li>
-      <a href=<%= user_path(friend.id) %>>
-        <%= image_tag friend.information.photo %>
-        <%= friend.name %>
-      </a>
-    </li>
+<div class="profile">
+  <h1><%= @user.name %></h1>
+  <%= image_tag @user.information.photo %>
+  <div class="description">
+    <h2>Description</h2>
+    <%= @user.information.description %>
+  </div>
+  <% if @friends.any? %>
+    <h2>Friends</h2>
+    <div class="container">
+      <% @friends.each do |friend| %>
+        <div class="friend">
+          <a class="user_a" href=<%= user_path(friend.id) %>>
+            <%= image_tag friend.information.photo %>
+            <%= friend.name %>
+          </a>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</ol>
+</div>

@@ -1,8 +1,10 @@
-<%= form_with model: @post do |f| %>
-  <%= f.hidden_field :creator_id, value: current_user.id %>
-
-  <%= f.label :content %>
-  <%= f.text_field :content %>
-
-  <%= f.submit %>
-<% end %>
+<div class="post_form">
+  <%= form_with model: @post do |f| %>
+    <%= f.hidden_field :creator_id, value: current_user.id %>
+  
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  
+    <%= f.submit %>
+  <% end %>
+</div>

@@ -13,14 +13,102 @@
  *= require_tree .
  *= require_self
  */
+  * {
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: "Gill Sans", sans-serif;
+  }
+
+  body {
+    background-color: rgb(255, 249, 241);
+  }
+
+  body:has(.sign_form) {
+  /* The image used */
+  background: url("https://images.pexels.com/photos/592077/pexels-photo-592077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+  }
+
+  .profile img {
+    width: 200px;
+  }
+
+  .profile .friend img {
+    width: 50px;
+  }
+
+  .header {
+    background-color: rgb(185, 205, 255);
+    padding: 20px;
+    word-spacing: 20px;
+  }
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .user_a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: rgb(52, 33, 33);
+    font-size: 30px;
+  }
+
+  .profile .user_a {
+    min-width: 200px;
+  }
+
+  .user_a_smaller {
+    font-size: 17px;
+    gap: 7px;
+  }
+
+  .user_a_smaller img {
+    width: 25px;
+  }
+
+  img {
+    width: 50px;
+    border: 2px solid black;
+  }
+
   .container {
     display:flex;
-    flex-flow:column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
+  }
+
+  .friend, .sent_invite, .received_invite, .others {
+    flex: 1;
+    border: 2px solid black;
+    margin: 5px;
+    padding: 10px;
+    min-width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-around;
   }
   
   .friend {
     order:4;
-    background-color: rgb(155, 219, 155);
+    background-color: rgb(141, 151, 141);
+    
   }
   
   .sent_invite {
@@ -30,10 +118,162 @@
   
   .received_invite {
     order:1;
-    background-color: rgb(255, 173, 173);
+    background-color: rgb(255, 243, 173);
   }
   
   .others {
     order:3;
     background-color: rgb(179, 254, 255);
+  }
+
+  .post_form form {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 40px;
+    gap: 30px;
+    background-color: antiquewhite;
+    padding: 30px;
+    font-weight: bold;
+  }
+
+  .center {
+    text-align: center;
+    margin: 20px;
+    font-size: 90px;
+  }
+
+  .post_form input[type="text"] {
+    height: 50px;
+    width: 70%;
+    font-size: 20px;
+  }
+
+  .post_form input[type="submit"] {
+    padding: 10px 40px;
+    font-size: 30px;
+  }
+
+  .posts_top {
+    text-align: center;
+  }
+
+  .posts_top button {
+    padding: 10px 30px;
+    font-size: 30px;
+    background-color: rgb(43, 174, 226);
+  }
+
+  button, input[type="submit"] {
+    padding: 5px 10px;
+    font-size: 15px;
+    background-color: rgb(254, 165, 165);
+    color: white;
+  }
+
+  input[type="text"] {
+    height: 32px;
+    font-size: 15px;
+  }
+
+  input[type="text"] {
+    padding: 3px;
+    width: 300px;
+  }
+
+  button:hover, a:hover, input[type="submit"]:hover {
+    color: rgb(0, 53, 145);
+    cursor: pointer;
+    scale: 1.02;
+  }
+
+  .post {
+    flex: 1;
+    margin: 12px;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post button {
+    background-color: rgb(6, 0, 176);
+  }
+
+  .post_content {
+    background-color: rgb(185, 205, 255);
+    padding: 10px;
+    min-height: 100px;
+    border: 1px solid black;
+    font-size: 18px;
+  }
+
+  .post_text {
+    padding: 20px;
+    font-weight: 500;
+  }
+
+  .comments {
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+  }
+
+  .comment {
+    border: 1px solid black;
+    width: 100%;
+    background-color: rgb(245, 232, 220);
+    padding: 5px;
+  }
+
+  .description {
+    min-height: 200px;
+    background-color: antiquewhite;
+    margin: 30px;
+    width: 60%;
+    text-align: center;
+  }
+
+  .users {
+    margin: 20px;
+  }
+
+  form:has(.edit), form:has(.like), form:has(.unlike) {
+    display: inline;
+  }
+
+  .sign_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 5px;
+    margin: 30vw;
+    margin-top: 100px;
+    background-color: rgba(255, 255, 255, 0.7);
+    min-width: max-content;
+    padding: 10px;
+  }
+
+  .sign_form input[type="password"], .sign_form input[type="email"],
+  .sign_form input[type="text"] {
+    height: 40px;
+    width: 330px;
+    font-size: 20px;
+  }
+
+  .sign_form .actions input[type="submit"] {
+    padding: 7px 40px;
+    margin: 10px;
+
+    align-self: center;
+  }
+
+  .sign_form .actions {
+    display: flex;
+    justify-content: center;
   }
