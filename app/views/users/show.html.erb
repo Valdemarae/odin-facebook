@@ -2,3 +2,12 @@
 <%= image_tag @user.information.photo %>
 <h2>Description</h2>
 <%= @user.information.description %>
+<h2>Friends</h2>
+<ol>
+  <% @friends.each do |friend| %>
+    <li>
+      <%= image_tag friend.information.photo %>
+      <%= friend.name %>
+    </li>
+  <% end %>
+</ol>
