@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+  .container {
+    display:flex;
+    flex-flow:column;
+  }
+  
+  .friend {
+    order:4;
+    background-color: rgb(155, 219, 155);
+  }
+  
+  .sent_invite {
+    order:2;
+    background-color: rgb(184, 169, 184);
+  }
+  
+  .received_invite {
+    order:1;
+    background-color: rgb(255, 173, 173);
+  }
+  
+  .others {
+    order:3;
+    background-color: rgb(179, 254, 255);
+  }
