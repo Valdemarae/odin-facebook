@@ -4,10 +4,12 @@
   <% if (@user == current_user) %>
     <%= link_to 'Edit', edit_information_path(@user.information.id) %>
   <% end %>
+
+  <h2>Description</h2>
   <div class="description">
-    <h2>Description</h2>
     <%= @user.information.description %>
   </div>
+
   <% if @friends.any? %>
     <h2>Friends</h2>
     <div class="container">
@@ -17,6 +19,48 @@
             <%= image_tag friend.information.photo %>
             <%= friend.name %>
           </a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @posts.any? %>
+    <h2>Posts</h2>
+    <div class="container">
+      <% @posts.each do |post| %>
+        <div class="post">
+          <div class="post_content">
+            <h1 class="post_text"><%= post.content %></h1>
+            Likes count: <%= post.likes.count %>
+            <% if (post.likes.exists?(user_id: current_user.id)) %>
+              <%= button_to 'Unlike', like_path(Like.find_by(post_id: post.id).id), method: :delete, class: "unlike" %>
+            <% else %>
+              <%= button_to 'Like', likes_path, params: { like: { user_id: current_user.id, post_id: post.id } }, class: "like" %>
+            <% end %>
+            <% if (post.creator.id == current_user.id) %>
+              <%= button_to 'Edit Post', edit_post_path(post.id), method: :get, class: 'edit' %>
+            <% end %>
+          </div>
+          <div class="comments">
+            <% if (post.comments.any?) %>
+              <h3>Comments</h3>
+              <% post.comments.each do |comment| %>
+                <div class="comment">
+                <a href=<%= user_path(comment.creator.id) %> class="user_a user_a_smaller">
+                  <%= image_tag comment.creator.information.photo %>
+                  <%= comment.creator.name %>
+                </a>
+                <p><%= comment.content %></p>
+                </div>
+              <% end %>
+            <% end %>
+            <%= form_with model: Comment.new do |f| %>
+              <%= f.hidden_field :creator_id, value: current_user.id %>
+              <%= f.hidden_field :post_id, value: post.id %>
+              <%= f.text_field :content %>
+              <%= f.submit %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
