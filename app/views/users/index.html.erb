@@ -2,45 +2,48 @@
   <h1>Users</h1>
   <div class='container'>
     <% @users.each do |user| %>
-      <% friendship = Friendship.find_by("user_id = ? AND another_user_id = ? OR
-        user_id = ? AND another_user_id = ?", user.id, current_user.id, current_user.id, user.id) %>
-  
-      <% if friendship %>
-        <% if (@friends.ids.include?(user.id)) %>
-          <div class="friend">
+
+      <% unless current_user == user %>
+        <% friendship = Friendship.find_by("user_id = ? AND another_user_id = ? OR
+          user_id = ? AND another_user_id = ?", user.id, current_user.id, current_user.id, user.id) %>
+    
+        <% if friendship %>
+          <% if (@friends.ids.include?(user.id)) %>
+            <div class="friend">
+              <a class="user_a" href=<%= user_path(user.id) %>>
+                <%= image_tag user.information.photo %>
+                <%= user.name %>
+              </a>
+              <%= button_to 'unfriend', "/friendships/#{friendship.id}", method: :delete %>
+            </div>
+          <% elsif (@sent_invitations.ids.include?(user.id)) %>
+            <div class="sent_invite">
+              <a class="user_a" href=<%= user_path(user.id) %>>
+                <%= image_tag user.information.photo %>
+                <%= user.name %>
+              </a>
+              <%= button_to 'unsend invitation', "/friendships/#{friendship.id}", method: :delete %>
+            </div>
+          <% elsif (@received_invitations.ids.include?(user.id)) %>
+            <div class="received_invite">
+              <a class="user_a" href=<%= user_path(user.id) %>>
+                <%= image_tag user.information.photo %>
+                <%= user.name %>
+              </a>
+              <%= button_to 'accept invite', "/friendships/#{friendship.id}", method: :put %>
+              <%= button_to 'decline invite', "/friendships/#{friendship.id}", method: :delete %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="others">
             <a class="user_a" href=<%= user_path(user.id) %>>
               <%= image_tag user.information.photo %>
               <%= user.name %>
             </a>
-            <%= button_to 'unfriend', "/friendships/#{friendship.id}", method: :delete %>
-          </div>
-        <% elsif (@sent_invitations.ids.include?(user.id)) %>
-          <div class="sent_invite">
-            <a class="user_a" href=<%= user_path(user.id) %>>
-              <%= image_tag user.information.photo %>
-              <%= user.name %>
-            </a>
-            <%= button_to 'unsend invitation', "/friendships/#{friendship.id}", method: :delete %>
-          </div>
-        <% elsif (@received_invitations.ids.include?(user.id)) %>
-          <div class="received_invite">
-            <a class="user_a" href=<%= user_path(user.id) %>>
-              <%= image_tag user.information.photo %>
-              <%= user.name %>
-            </a>
-            <%= button_to 'accept invite', "/friendships/#{friendship.id}", method: :put %>
-            <%= button_to 'decline invite', "/friendships/#{friendship.id}", method: :delete %>
+            <%= button_to 'send invite', '/friendships', method: :post,
+              params: { friendship: { user_id: current_user.id, another_user_id: user.id } } %>
           </div>
         <% end %>
-      <% else %>
-        <div class="others">
-          <a class="user_a" href=<%= user_path(user.id) %>>
-            <%= image_tag user.information.photo %>
-            <%= user.name %>
-          </a>
-          <%= button_to 'send invite', '/friendships', method: :post,
-            params: { friendship: { user_id: current_user.id, another_user_id: user.id } } %>
-        </div>
       <% end %>
     <% end %>
   </div>

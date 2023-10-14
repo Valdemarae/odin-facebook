@@ -38,6 +38,7 @@ class User < ApplicationRecord
   private
 
   def add_default_photo
-    self.photo.attach(io: File.open(Rails.root.join("app", "assets", "images", "default.jpg")), filename: 'default.jpg' , content_type: "image/jpg")
+    self.create_information!(description: '...')
+    self.information.photo.attach(io: File.open(Rails.root.join("app", "assets", "images", "default.jpg")), filename: 'default.jpg' , content_type: "image/jpg")
   end
 end
