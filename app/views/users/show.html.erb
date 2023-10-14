@@ -1,6 +1,9 @@
 <div class="profile">
   <h1><%= @user.name %></h1>
   <%= image_tag @user.information.photo %>
+  <% if (@user == current_user) %>
+    <%= link_to 'Edit', edit_information_path(@user.information.id) %>
+  <% end %>
   <div class="description">
     <h2>Description</h2>
     <%= @user.information.description %>

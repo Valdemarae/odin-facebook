@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :friendships, only: [:index, :show]
   resources :likes, :comments, only: [:create, :destroy]
   resources :friendships, only: [:create, :update, :destroy]
+  resources :informations, only: [:update, :edit]
   root 'posts#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

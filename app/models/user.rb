@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  after_create :create_information
+  after_create :add_default_photo
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -37,7 +37,7 @@ class User < ApplicationRecord
 
   private
 
-  def create_information
-    User.last.create_information!(photo: 'https://i.stack.imgur.com/YaL3s.jpg', description: '...')
+  def add_default_photo
+    self.photo.attach(io: File.open(Rails.root.join("app", "assets", "images", "default.jpg")), filename: 'default.jpg' , content_type: "image/jpg")
   end
 end

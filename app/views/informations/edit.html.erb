@@ -1,0 +1,14 @@
+<h1 class="center">Edit Profile</h1>
+<div class="post_form">
+  <%= form_with model: @information do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+  
+    <%= f.label :photo %>
+    <div class="profile"><%= image_tag @information.photo %></div>
+    <%= f.file_field :photo, accept: 'image/png,image/jpeg'%>
+  
+    <%= f.submit %>
+  <% end %>
+</div>
