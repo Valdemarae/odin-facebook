@@ -288,10 +288,12 @@
   .notification {
     color: red;
     -webkit-animation: pulsate 2s ease-out;
+            animation: pulsate 2s ease-out;
     -webkit-animation-iteration-count: infinite; 
+            animation-iteration-count: infinite; 
   }
 
-  @-webkit-keyframes pulsate {
+  @keyframes pulsate {
       0% { 
           font-size: 15px;
       }
