@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.includes(:creator)
+    timeline_users_ids = [current_user.id] + current_user.friends.ids
+    all_posts = Post.order('created_at DESC')
+    @timeline_posts = all_posts.select {|post| timeline_users_ids.include?(post.creator.id)}
+    @other_posts = all_posts.select {|post| !timeline_users_ids.include?(post.creator.id)}
   end
 
   def new

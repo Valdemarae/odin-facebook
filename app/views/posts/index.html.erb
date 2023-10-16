@@ -3,8 +3,55 @@
   <h2><%= button_to 'Create Post', new_post_path, method: :get %></h2>
 </div>
 
+<h1 class="center">Timeline Posts</h1>
 <div class="container">
-  <% @posts.each do |post| %>
+  <% @timeline_posts.each do |post| %>
+    <div class="post">
+      <div class="post_content">
+        <h3>
+        <a href=<%= user_path(post.creator.id) %> class="user_a">
+          <%= image_tag post.creator.information.photo %>
+          <%= post.creator.name %>
+        </a>
+        </h3>
+        <h1 class="post_text"><%= post.content %></h1>
+        Likes count: <%= post.likes.count %>
+        <% if (post.likes.exists?(user_id: current_user.id)) %>
+          <%= button_to 'Unlike', like_path(Like.find_by(post_id: post.id).id), method: :delete, class: "unlike" %>
+        <% else %>
+          <%= button_to 'Like', likes_path, params: { like: { user_id: current_user.id, post_id: post.id } }, class: "like" %>
+        <% end %>
+        <% if (post.creator.id == current_user.id) %>
+          <%= button_to 'Edit Post', edit_post_path(post.id), method: :get, class: 'edit' %>
+        <% end %>
+      </div>
+      <div class="comments">
+        <% if (post.comments.any?) %>
+          <h3>Comments</h3>
+          <% post.comments.each do |comment| %>
+            <div class="comment">
+            <a href=<%= user_path(comment.creator.id) %> class="user_a user_a_smaller">
+              <%= image_tag comment.creator.information.photo %>
+              <%= comment.creator.name %>
+            </a>
+            <p><%= comment.content %></p>
+            </div>
+          <% end %>
+        <% end %>
+        <%= form_with model: Comment.new do |f| %>
+          <%= f.hidden_field :creator_id, value: current_user.id %>
+          <%= f.hidden_field :post_id, value: post.id %>
+          <%= f.text_field :content %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<h1 class="center">Other Posts</h1>
+<div class="container">
+  <% @other_posts.each do |post| %>
     <div class="post">
       <div class="post_content">
         <h3>
