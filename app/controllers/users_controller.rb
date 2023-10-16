@@ -11,4 +11,9 @@ class UsersController < ApplicationController
     @friends = @user.friends
     @posts = @user.posts
   end
+
+  def notification
+    @user = User.find(params[:id])
+    @invitations = @user.received_invitations
+  end
 end

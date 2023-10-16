@@ -1,0 +1,15 @@
+<div class="users">
+  <h1>Notifications</h1>
+  <% @invitations.each do |inviter| %>
+    <% friendship = Friendship.find_by("user_id = ? AND another_user_id = ? OR
+      user_id = ? AND another_user_id = ?", inviter.id, @user.id, @user.id, inviter.id) %>
+    <div class="received_invite">
+      <a class="user_a" href=<%= user_path(inviter.id) %>>
+        <%= image_tag inviter.information.photo %>
+        <%= inviter.name %>
+      </a>
+      <%= button_to 'accept invite', "/friendships/#{friendship.id}", method: :put, params: { notification: true } %>
+      <%= button_to 'decline invite', "/friendships/#{friendship.id}", method: :delete, params: { notification: true } %>
+    </div>
+  <% end %>
+</div>

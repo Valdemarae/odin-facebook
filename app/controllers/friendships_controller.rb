@@ -8,13 +8,21 @@ class FriendshipsController < ApplicationController
   def destroy
     @friendship = Friendship.find(params[:id])
     @friendship.destroy
-    redirect_to users_path
+    if (params[:notification])
+      redirect_to notification_path(current_user.id)
+    else
+      redirect_to users_path
+    end
   end
 
   def update
     @friendship = Friendship.find(params[:id])
     @friendship.update(confirmed: true)
-    redirect_to users_path
+    if (params[:notification])
+      redirect_to notification_path(current_user.id)
+    else
+      redirect_to users_path
+    end
   end
 
   private

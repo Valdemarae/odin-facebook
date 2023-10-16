@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :update, :destroy]
   resources :informations, only: [:update, :edit]
   root 'posts#index'
+  get 'users/:id/notifications', to: 'users#notification', as: 'notification'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
