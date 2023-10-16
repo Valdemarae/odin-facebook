@@ -4,7 +4,7 @@ class User < ApplicationRecord
   after_create :add_default_photo
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :trackable, :omniauthable
 
   has_many :friendships
 
@@ -35,8 +35,18 @@ class User < ApplicationRecord
     User.where(id: ids)
   end
 
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.name = auth.info.name
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
+  
   private
-
+  
   def add_default_photo
     self.create_information!(description: '...')
     self.information.photo.attach(io: File.open(Rails.root.join("app", "assets", "images", "default.jpg")), filename: 'default.jpg' , content_type: "image/jpg")
