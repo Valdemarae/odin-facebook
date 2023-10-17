@@ -6,4 +6,6 @@ class Post < ApplicationRecord
   has_many :likes
 
   validates :content, presence: true
+
+  has_one_attached :image
 end

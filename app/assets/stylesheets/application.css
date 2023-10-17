@@ -197,7 +197,7 @@
   .post {
     flex: 1;
     margin: 12px;
-    min-width: 500px;
+    max-width: max-content;
     display: flex;
     flex-direction: column;
   }
@@ -303,4 +303,11 @@
       100% { 
         font-size: 20px;
       }
+  }
+
+  .post_photo img {
+    max-width: 60vw;
+    max-height: 400px;
+    width: max-content;
+    height: max-content;
   }

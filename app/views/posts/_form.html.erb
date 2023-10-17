@@ -2,6 +2,9 @@
   <%= form_with model: @post do |f| %>
     <%= f.hidden_field :creator_id, value: current_user.id %>
   
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+
     <%= f.label :content %>
     <%= f.text_field :content %>
   
